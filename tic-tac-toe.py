@@ -18,10 +18,20 @@ board = [[EMPTY, EMPTY, EMPTY],
 		[EMPTY, EMPTY, EMPTY],
 		[EMPTY, EMPTY, EMPTY,]]
 
+# Exibe a celula com o conteudo especifico
+def print_cell(content):
+	if content == CROSS:
+		print "X",
+	elif content == NOUGHT:
+		print "O",
+	else:
+		print " ",	
+
+# Exibe o tabuleiro
 def print_board():
 	for row in range(0, ROWS):
 		for col in range(0, COLS):
-			print board[row][col],
+			print_cell(board[row][col])
 			if col != COLS-1:
 				print "|",
 		print
@@ -30,5 +40,3 @@ def print_board():
 
 # Execução main
 print_board()
-
-
