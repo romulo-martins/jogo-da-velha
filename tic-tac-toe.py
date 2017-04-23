@@ -18,14 +18,24 @@ board = [[EMPTY, EMPTY, EMPTY],
 		[EMPTY, EMPTY, EMPTY],
 		[EMPTY, EMPTY, EMPTY,]]
 
-# Exibe a celula com o conteudo especifico
-def print_cell(content):
-	if content == CROSS:
-		print "X",
-	elif content == NOUGHT:
-		print "O",
+# ---------- Métodos ------------------
+
+def is_even(number):
+	return number % 2 == 0
+
+def is_valid_input(row, col):
+	return (row >= 0) and (row < ROWS) and (col >= 0) and (col < COLS) and (board[row][col] == EMPTY)
+
+def playerMove(currentPlayer):
+	print "Jogador 'X', entre com sua jogada (linha[1-3] coluna[1-3]): "
+	
+	row = int(raw_input(""))-1
+	col = int(raw_input(""))-1
+
+	if is_valid_input(row, col):
+		board[row][col] = CROSS
 	else:
-		print " ",	
+		print "Movimento inválido!"	
 
 # Exibe o tabuleiro
 def print_board():
@@ -38,5 +48,18 @@ def print_board():
 		if row != ROWS-1:
 			print "-----------"
 
+# Exibe a celula com o conteudo especifico
+def print_cell(content):
+	if content == CROSS:
+		print "X",
+	elif content == NOUGHT:
+		print "O",
+	else:
+		print " ",	
+
+# ------------- Jogo ----------------------------
+currentPlayer = CROSS
 # Execução main
+playerMove(currentPlayer) # update currentRow and currentCol
+#updateGame(currentPlayer, currntRow, currentCol) # update currentState
 print_board()
