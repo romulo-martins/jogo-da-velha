@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# Constantes para representar os tipos de jogadores
+# Constantes para representar os tipos de jogadores, vai para variavel current_player
 EMPTY = 0
 CROSS = 1
 NOUGHT = 2
 
-# Constantes para representar varios estados do jogo
+# Constantes para representar varios estados do jogo, vai para variavel game_state
 PLAYING = 0
 DRAW = 1
 CROSS_WON = 2
@@ -41,17 +41,21 @@ def player_move(current_player):
 		print "Jogador 'X', entre com sua jogada (linha[1-3] coluna[1-3]): "
 	else:
 		print "Jogador 'O', entre com sua jogada (linha[1-3] coluna[1-3]): "		
-	
-	row = int(raw_input(""))-1
-	col = int(raw_input(""))-1
 
-	if is_valid_input(row, col):
-		if current_player == CROSS:
-			board[row][col] = CROSS
+	valid_input = False
+	while not valid_input:
+		row = int(raw_input())-1
+		col = int(raw_input())-1
+		
+		if is_valid_input(row, col):
+			if current_player == CROSS:
+				board[row][col] = CROSS
+			else:
+				board[row][col] = NOUGHT	
+			valid_input = True		
 		else:
-			board[row][col] = NOUGHT		
-	else:
-		print "Movimento inválido!"	
+			print "Movimento inválido! Tente novamente: "	
+
 
 # Exibe o tabuleiro
 def print_board():
@@ -73,6 +77,7 @@ def print_cell(content):
 	else:
 		print " ",	
 
+# Método para escolher se o jogador quer jogar com X ou O
 def choose_player():
 	print "Escolha quem começa X ou O (x/o): "
 	how_start = str(raw_input())
@@ -84,7 +89,6 @@ def choose_player():
 
 # ------------- Jogo ----------------------------
 current_player = EMPTY
-
 exit = False
 while(not exit):
 	current_player = choose_player()
@@ -93,8 +97,10 @@ while(not exit):
 	else:
 		exit = True	
 
-# Execução main
+game_state = PLAYING
 print_board()
-player_move(current_player)
-#updateGame(currentPlayer, currntRow, currentCol) # update currentState
-print_board()
+while game_state == PLAYING:
+	player_move(current_player)
+	current_player = NOUGHT if current_player == CROSS else CROSS
+	#game_state = update_game()
+	print_board()
