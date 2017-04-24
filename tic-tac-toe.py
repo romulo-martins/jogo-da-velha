@@ -26,14 +26,30 @@ def is_even(number):
 def is_valid_input(row, col):
 	return (row >= 0) and (row < ROWS) and (col >= 0) and (col < COLS) and (board[row][col] == EMPTY)
 
-def playerMove(currentPlayer):
-	print "Jogador 'X', entre com sua jogada (linha[1-3] coluna[1-3]): "
+def is_cross(value):
+	return value == 'x' or value == 'X'	
+
+def is_nought(value):
+	return value == 'o' or value == 'O'
+
+def player_is_valid(player):
+	return player == CROSS or player == NOUGHT	
+
+# O jogador do estado atual executa seu movimento
+def player_move(current_player):
+	if current_player == CROSS:
+		print "Jogador 'X', entre com sua jogada (linha[1-3] coluna[1-3]): "
+	else:
+		print "Jogador 'O', entre com sua jogada (linha[1-3] coluna[1-3]): "		
 	
 	row = int(raw_input(""))-1
 	col = int(raw_input(""))-1
 
 	if is_valid_input(row, col):
-		board[row][col] = CROSS
+		if current_player == CROSS:
+			board[row][col] = CROSS
+		else:
+			board[row][col] = NOUGHT		
 	else:
 		print "Movimento inválido!"	
 
@@ -57,9 +73,28 @@ def print_cell(content):
 	else:
 		print " ",	
 
+def choose_player():
+	print "Escolha quem começa X ou O (x/o): "
+	how_start = str(raw_input())
+	if is_cross(how_start):
+		return CROSS
+	elif is_nought(how_start):
+		return NOUGHT
+	return EMPTY	
+
 # ------------- Jogo ----------------------------
-currentPlayer = CROSS
+current_player = EMPTY
+
+exit = False
+while(not exit):
+	current_player = choose_player()
+	if not player_is_valid(current_player):
+		print "Opção inválida!"
+	else:
+		exit = True	
+
 # Execução main
-playerMove(currentPlayer) # update currentRow and currentCol
+print_board()
+player_move(current_player)
 #updateGame(currentPlayer, currntRow, currentCol) # update currentState
 print_board()
