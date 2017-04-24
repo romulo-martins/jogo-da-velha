@@ -32,6 +32,14 @@ def is_cross(value):
 def is_nought(value):
 	return value == 'o' or value == 'O'
 
+#  Retorna verdadeiro (true) se empatou
+def is_draw():
+	for row in range(0, ROWS):
+		for col in range(0, COLS):
+			if board[row][col] == EMPTY:
+				return False 
+	return True			
+
 def player_is_valid(player):
 	return player == CROSS or player == NOUGHT	
 
@@ -46,7 +54,7 @@ def player_move(current_player):
 	while not valid_input:
 		row = int(raw_input())-1
 		col = int(raw_input())-1
-		
+
 		if is_valid_input(row, col):
 			if current_player == CROSS:
 				board[row][col] = CROSS
@@ -57,6 +65,26 @@ def player_move(current_player):
 			print "Movimento inválido! Tente novamente: "	
 
 
+# Verifica se existe um vencedor
+def has_won():
+	# verifica linhas
+	for row in range(0, ROWS):
+		if board[row][0] != EMPTY and board[row][0] == board[row][1] and board[row][1] == board[row][2]:
+			return True
+
+	# verifica colunas 		
+	for col in range(0, COLS):
+		if board[0][col] != EMPTY and board[0][col] == board[1][col] and board[1][col] == board[2][col]:
+			return True
+
+	if (board[0][0] != EMPTY and board[0][0] == board[1][1] and board[1][1] == board[2][2]):
+		return True
+
+	if (board[0][2] != EMPTY and board[0][2] == board[1][1] and board[1][1] == board[2][0]):
+		return True		
+
+	return False		
+			
 # Exibe o tabuleiro
 def print_board():
 	for row in range(0, ROWS):
@@ -102,5 +130,7 @@ print_board()
 while game_state == PLAYING:
 	player_move(current_player)
 	current_player = NOUGHT if current_player == CROSS else CROSS
-	#game_state = update_game()
 	print_board()
+	if has_won() or is_draw():
+		print "Fim de Jogo"
+		game_state = DRAW
