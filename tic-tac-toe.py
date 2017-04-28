@@ -115,6 +115,20 @@ def choose_player():
 		return NOUGHT
 	return EMPTY	
 
+def update_game():
+	if has_won() and current_player == CROSS:
+		print "Jogador O vencedor!"
+		return NOUGHT_WON
+	elif has_won() and current_player == NOUGHT:
+		print "Jogador X vencedor!"
+		return CROSS_WON
+	elif is_draw():	
+		print "Empatou!"
+		return DRAW
+	else:
+		return PLAYING			
+
+
 # ------------- Jogo ----------------------------
 current_player = EMPTY
 exit = False
@@ -131,6 +145,4 @@ while game_state == PLAYING:
 	player_move(current_player)
 	current_player = NOUGHT if current_player == CROSS else CROSS
 	print_board()
-	if has_won() or is_draw():
-		print "Fim de Jogo"
-		game_state = DRAW
+	game_state = update_game()
