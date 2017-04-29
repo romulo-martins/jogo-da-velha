@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+# ******************************** #
+# Versão não orientada a objetos   # 
+# ******************************** #
+
 # Constantes para representar os tipos de jogadores, vai para variavel current_player
 EMPTY = 0
 CROSS = 1
