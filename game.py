@@ -10,7 +10,6 @@ CROSS_WON = 2
 NOUGHT_WON = 3
 
 class Game:
-
 	def __init__(self):
 		self.board = Board()
 
@@ -25,8 +24,9 @@ class Game:
 			self.show_game_status(self.game_state)	
 			self.current_player = NOUGHT if self.current_player == CROSS else CROSS
 
+	# faz as inicializações no jogo		
 	def init_game(self):
-		print "Olá, vamos começar a jogar"	
+		print "*** Olá, vamos começar a jogar. ***"	
 		self.current_player = self.choose_player()
 		self.game_state = PLAYING
 
@@ -73,19 +73,21 @@ class Game:
 			else:
 				print "Movimento inválido! Tente novamente: "	
 
+	# Atualiza o estado do jogo  		
 	def update_game(self, player):
 		if(self.board.has_won(player)):
 			self.game_state = CROSS_WON if player == CROSS else NOUGHT_WON
 		elif(self.board.is_draw()):
 			self.game_state = DRAW
 
+	# Exibe o estado do jogo em caso de termino (por empate ou vecendor)		
 	def show_game_status(self, game_state):
 		if game_state == NOUGHT_WON:
-			print "Vencedor O!\n Fim de Jogo!"
+			print "Vencedor O!\n*** Fim de Jogo! ***"
 		elif game_state == CROSS_WON:
-			print "Vencedor X!\n Fim de Jogo!"
+			print "Vencedor X!\n*** Fim de Jogo! ***"
 		elif game_state == DRAW:	
-			print "Empate!\n Fim de Jogo"		
+			print "Empate!\n*** Fim de Jogo! ***"		
 							
 
 # ------------- Jogo ----------------------------
