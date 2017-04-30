@@ -24,8 +24,8 @@ class Board:
 		# verifica colunas 		
 		for col in range(0, COLS):
 			if (self.cells[0][col].content == player and 
-				self.cells[0][col].content == self.cells[1][col] and 
-				self.cells[1][col].content == self.cells[2][col]):
+				self.cells[0][col].content == self.cells[1][col].content and 
+				self.cells[1][col].content == self.cells[2][col].content):
 				return True
 		# verifica diagonais		
 		return ((self.cells[0][0].content == player and 
