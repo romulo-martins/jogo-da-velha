@@ -3,7 +3,6 @@
 
 from cell import *
 from board import *
-#from game import *
 
 class Minimax:
 	def __init__(self, board):
@@ -29,16 +28,16 @@ class Minimax:
 					 moves.append([row, col])
 		return moves
 
-    # Retorna um valor para O; 1 para vencer, -1 para perder, 0 em caso contrario.    
-    def utility(self, player):
-    	if self.board.has_won(Cell.NOUGHT):
-    		return 1
-    	elif self.board.has_won(Cell.CROSS):
-    		return -1
-    	else:
-    		return 0	 	
+    # # Retorna um valor para O; 1 para vencer, -1 para perder, 0 em caso contrario.    
+    # def utility(self, player):
+    # 	if self.board.has_won(Cell.NOUGHT):
+    # 		return 1
+    # 	elif self.board.has_won(Cell.CROSS):
+    # 		return -1
+    # 	else:
+    # 		return 0	 	
 
-    # Retorna verdadeiro caso tenha terminado o jogo 
-    def terminal_test(self):
-        # TODO:
-        return None	
+    # # Retorna verdadeiro caso tenha terminado o jogo 
+    # def terminal_test(self):
+    #     # TODO:
+    #     return None	
