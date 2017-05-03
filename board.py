@@ -41,7 +41,15 @@ class Board:
 			for col in range(0, self.COLS):
 				if self.cells[row][col].content == Cell.EMPTY:
 					return False 
-		return True			
+		return True
+
+	def copy(self):
+		new_board = Board()
+		for row in range(0, self.ROWS):
+			for col in range(0, self.COLS):
+				new_board.cells[row][col].content = self.cells[row][col].content 
+		return new_board
+
 
 	# Exibe o tabuleiro
 	def show(self):

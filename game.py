@@ -14,7 +14,7 @@ class Game:
 
 	def __init__(self):
 		self.board = Board()
-		#self.computer = AiPlayer(self.board)
+		# self.computer = AiPlayer(self.board)
 		self.computer = Minimax(self.board)
 
 	# Método que dá inicio ao jogo em si	
@@ -76,7 +76,7 @@ class Game:
 		else:
 			print "Jogador 'O'(PC): "
 			move = self.computer.move()
-			#self.board.cells[move[0]][move[1]].content = player	
+			self.board.cells[move[0]][move[1]].content = player	
 
 	# Atualiza o estado do jogo  		
 	def update_game(self, player):
