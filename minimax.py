@@ -20,12 +20,14 @@ class Minimax:
 		if self.terminal_test(board):
 			return [self.utility(board), None]
 		v = [float("inf"), None]
-		for move in self.legal_moves(board):			
-			self.make_move(move, board, Cell.CROSS)
-			m = self.max_value(board.copy()) 
+		moves = self.legal_moves(board)
+		for i in range(0, len(moves)):
+			b = board.copy()			
+			self.make_move(moves[i], b, Cell.CROSS)
+			m = self.max_value(b) 
 			if m[0] < v[0]:
 				v[0] = m[0]
-				v[1] = move
+				v[1] = moves[i]
 		return v
 
 	# Maximiza a jogada do PC	
@@ -33,12 +35,14 @@ class Minimax:
 		if self.terminal_test(board):
 			return [self.utility(board), None]
 		v = [float("-inf"), None]
-		for move in self.legal_moves(board):
-			self.make_move(move, board, Cell.NOUGHT)
-			m = self.min_value(board.copy()) 
+		moves = self.legal_moves(board)
+		for i in range(0, len(moves)):
+			b = board.copy()
+			self.make_move(moves[i], b, Cell.NOUGHT)
+			m = self.min_value(b) 
 			if m[0] > v[0]:
 				v[0] = m[0]
-				v[1] = move
+				v[1] = moves[i]
 		return v	
 
 	# Executa a ação (a jogada)	
