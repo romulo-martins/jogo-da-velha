@@ -9,25 +9,20 @@ class Minimax:
 		self.board = board
 
 	def move(self):
-		m = self.minimax_decision(self.board.copy())
-		return m[1]
-
-	def minimax_decision(self, board):
-		return self.max_value(board)
+		return self.max_value(self.board.copy())[1]
 
 	# Minimiza a jogada do oponente	
 	def min_value(self, board):
 		if self.terminal_test(board):
 			return [self.utility(board), None]
 		v = [float("inf"), None]
-		moves = self.legal_moves(board)
-		for i in range(0, len(moves)):
+		for move in self.legal_moves(board):
 			b = board.copy()			
-			self.make_move(moves[i], b, Cell.CROSS)
+			self.make_move(move, b, Cell.CROSS)
 			m = self.max_value(b) 
 			if m[0] < v[0]:
 				v[0] = m[0]
-				v[1] = moves[i]
+				v[1] = move
 		return v
 
 	# Maximiza a jogada do PC	
@@ -35,14 +30,13 @@ class Minimax:
 		if self.terminal_test(board):
 			return [self.utility(board), None]
 		v = [float("-inf"), None]
-		moves = self.legal_moves(board)
-		for i in range(0, len(moves)):
+		for move in self.legal_moves(board):
 			b = board.copy()
-			self.make_move(moves[i], b, Cell.NOUGHT)
+			self.make_move(move, b, Cell.NOUGHT)
 			m = self.min_value(b) 
 			if m[0] > v[0]:
 				v[0] = m[0]
-				v[1] = moves[i]
+				v[1] = move
 		return v	
 
 	# Executa a ação (a jogada)	
