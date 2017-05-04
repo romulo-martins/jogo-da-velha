@@ -14,7 +14,6 @@ class Game:
 
 	def __init__(self):
 		self.board = Board()
-		# self.computer = AiPlayer(self.board)
 		self.computer = Minimax(self.board)
 
 	# Método que dá inicio ao jogo em si	

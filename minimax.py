@@ -13,39 +13,37 @@ class Minimax:
 		return m[1]
 
 	def minimax_decision(self, board):
-		return self.max_value(board, Cell.CROSS)
+		return self.max_value(board)
 
-	def min_value(self, board, player):
+	# Minimiza a jogada do oponente	
+	def min_value(self, board):
 		if self.terminal_test(board):
-			return self.utility(board)
-		v = float("inf")
-		a = [None, None]
+			return [self.utility(board), None]
+		v = [float("inf"), None]
 		for move in self.legal_moves(board):			
 			self.make_move(move, board, Cell.CROSS)
-			m = self.max_value(board, Cell.NOUGHT) 
-			if m < v:
-				v = m
-				a[0] = m
-				a[1] = move
-		return a
+			m = self.max_value(board.copy()) 
+			if m[0] < v[0]:
+				v[0] = m[0]
+				v[1] = move
+		return v
 
-	def max_value(self, board, player):
+	# Maximiza a jogada do PC	
+	def max_value(self, board):
 		if self.terminal_test(board):
-			return self.utility(board)
-		v = float("-inf")
-		a = [None, None]
+			return [self.utility(board), None]
+		v = [float("-inf"), None]
 		for move in self.legal_moves(board):
 			self.make_move(move, board, Cell.NOUGHT)
-			m = self.min_value(board, Cell.CROSS) 
-			if m > v:
-				v = m
-				a[0] = m
-				a[1] = move
-		return a	
+			m = self.min_value(board.copy()) 
+			if m[0] > v[0]:
+				v[0] = m[0]
+				v[1] = move
+		return v	
 
+	# Executa a ação (a jogada)	
 	def make_move(self, move, board, player):
-		if board.cells[move[0]][move[1]].content == Cell.EMPTY:
-			board.cells[move[0]][move[1]].content = player
+		board.cells[move[0]][move[1]].content = player
 
 	# Retorna uma lista de possiveis jogadas
 	def legal_moves(self, board):
@@ -67,5 +65,5 @@ class Minimax:
 
 	# Retorna verdadeiro caso tenha terminado o jogo 
 	def terminal_test(self, board):
-		return (board.is_draw() or board.has_won(Cell.NOUGHT))
+		return (board.is_draw() or board.has_won(Cell.NOUGHT) or board.has_won(Cell.CROSS))
 
