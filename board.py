@@ -43,15 +43,6 @@ class Board:
 					return False 
 		return True
 
-	# Retorna uma copia do estado atual do tabuleiro	
-	def copy(self):
-		new_board = Board()
-		for row in range(0, self.ROWS):
-			for col in range(0, self.COLS):
-				new_board.cells[row][col].content = self.cells[row][col].content 
-		return new_board
-
-
 	# Exibe o tabuleiro
 	def show(self):
 		for row in range(0, self.ROWS):

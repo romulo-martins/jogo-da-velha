@@ -9,7 +9,7 @@ class Minimax:
 		self.board = board
 
 	def move(self):
-		return self.max_value(self.board.copy(), float('-inf'), float('inf'))[1]
+		return self.max_value(self.board, float('-inf'), float('inf'))[1]
 
 	# Minimiza a jogada do oponente	
 	def min_value(self, board, alfa, beta):
@@ -17,16 +17,15 @@ class Minimax:
 			return [self.utility(board), None]
 		v = [float("inf"), None]
 		for move in self.legal_moves(board):
-			b = board.copy()			
-			self.make_move(move, b, Cell.CROSS)
-			m = self.max_value(b, alfa, beta) 
+			self.make_move(move, board, Cell.CROSS)
+			m = self.max_value(board, alfa, beta) 
+			self.make_move(move, board, Cell.EMPTY)
 			if m[0] < v[0]:
 				v[0] = m[0]
 				v[1] = move
 			if v[0] <= alfa:
 				return v
-			if v[0] < beta:
-				beta = v[0]		
+			beta = min(v[0], beta)	
 		return v
 
 	# Maximiza a jogada do PC	
@@ -35,16 +34,15 @@ class Minimax:
 			return [self.utility(board), None]
 		v = [float("-inf"), None]
 		for move in self.legal_moves(board):
-			b = board.copy()
-			self.make_move(move, b, Cell.NOUGHT)
-			m = self.min_value(b, alfa, beta) 
+			self.make_move(move, board, Cell.NOUGHT)
+			m = self.min_value(board, alfa, beta) 
+			self.make_move(move, board, Cell.EMPTY)
 			if m[0] > v[0]:
 				v[0] = m[0]
-				v[1] = move
+				v[1] = move	
 			if v[0] >= beta:
 				return v
-			if v[0] > alfa:
-				alfa = v[0] 		
+			alfa = max(v[0], alfa)	
 		return v	
 
 	# Executa a ação (a jogada)	
