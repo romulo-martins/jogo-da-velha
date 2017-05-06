@@ -2,7 +2,6 @@
 
 from cell import *
 from board import *
-from aiplayer import *
 from minimax import *
 
 # Constantes para representar varios estados do jogo, vai para variavel game_state
